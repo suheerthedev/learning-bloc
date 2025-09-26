@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_bloc/constants/enums.dart';
 import 'package:learning_bloc/logic/cubit/counter_cubit.dart';
+import 'package:learning_bloc/logic/cubit/internet_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   final String title;
@@ -24,6 +26,47 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              BlocBuilder<InternetCubit, InternetState>(
+                builder: (context, state) {
+                  if (state is InternetConnected &&
+                      state.connectionType == ConnectionType.wifi) {
+                    return Text(
+                      'Wifi',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineLarge?.copyWith(color: Colors.green),
+                    );
+                  } else if (state is InternetConnected &&
+                      state.connectionType == ConnectionType.mobileData) {
+                    return Text(
+                      'Mobile',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineLarge?.copyWith(color: Colors.yellow),
+                    );
+                  } else if (state is InternetDisconnected) {
+                    return Text(
+                      'Disconnected',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineLarge?.copyWith(color: Colors.red),
+                    );
+                  } else if (state is InternetLoading) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Checking Connection',
+                          style: Theme.of(context).textTheme.headlineLarge
+                              ?.copyWith(color: Colors.orange),
+                        ),
+                        CircularProgressIndicator(color: Colors.orange),
+                      ],
+                    );
+                  }
+                  return CircularProgressIndicator();
+                },
+              ),
               BlocConsumer<CounterCubit, CounterState>(
                 listener: (context, state) {
                   if (state.wasIncremented) {
