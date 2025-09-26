@@ -1,5 +1,7 @@
 part of 'internet_cubit.dart';
 
+
+
 sealed class InternetState extends Equatable {
   const InternetState();
 
