@@ -1,10 +1,7 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_bloc/logic/cubit/counter_cubit.dart';
-import 'package:learning_bloc/logic/cubit/internet_cubit.dart';
 import 'package:learning_bloc/presentation/router/app_router.dart';
 
 void main() {
@@ -18,16 +15,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<InternetCubit>(
-          create: (context) => InternetCubit(connectivity: connectivity),
-        ),
-        BlocProvider<CounterCubit>(
-          create: (context) =>
-              CounterCubit(internetCubit: context.call().bloc<InternetCubit>()),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => CounterCubit(),
       child: MaterialApp(
         title: 'Counter Bloc App',
         theme: ThemeData(
