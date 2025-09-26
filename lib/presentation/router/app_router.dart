@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_bloc/logic/cubit/counter_cubit.dart';
 import 'package:learning_bloc/presentation/screens/home_screen.dart';
+import 'package:learning_bloc/presentation/screens/second_screen.dart';
+import 'package:learning_bloc/presentation/screens/third_screen.dart';
 
 class AppRouter {
   final CounterCubit _counterCubit = CounterCubit();
@@ -19,14 +21,20 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: _counterCubit,
-            child: HomeScreen(title: 'Second Screen', color: Colors.redAccent),
+            child: SecondScreen(
+              title: 'Second Screen',
+              color: Colors.redAccent,
+            ),
           ),
         );
       case '/third':
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: _counterCubit,
-            child: HomeScreen(title: 'Third Screen', color: Colors.greenAccent),
+            child: ThirdScreen(
+              title: 'Third Screen',
+              color: Colors.greenAccent,
+            ),
           ),
         );
 
