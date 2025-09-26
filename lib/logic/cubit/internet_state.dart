@@ -7,7 +7,7 @@ sealed class InternetState extends Equatable {
   List<Object> get props => [];
 }
 
-final class InternetLoading extends InternetState {}
+class InternetLoading extends InternetState {}
 
 class InternetConnected extends InternetState {
   final ConnectionType connectionType;
