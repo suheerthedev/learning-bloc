@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_bloc/logic/cubit/counter_cubit.dart';
+import 'package:learning_bloc/logic/cubit/internet_cubit.dart';
 import 'package:learning_bloc/presentation/router/app_router.dart';
 
 void main() {
@@ -15,8 +16,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CounterCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => InternetCubit(connectivity: connectivity),
+        ),
+        BlocProvider(
+          create: (context) => CounterCubit(
+            internetCubit: BlocProvider.of<InternetCubit>(context),
+          ),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Counter Bloc App',
