@@ -12,6 +12,11 @@ final class InternetLoading extends InternetState {}
 class InternetConnected extends InternetState {
   final ConnectionType connectionType;
 
+  @override
+  String toString() {
+    return 'connectionType: $connectionType';
+  }
+
   const InternetConnected({required this.connectionType});
 }
 
